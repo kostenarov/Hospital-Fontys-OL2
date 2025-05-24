@@ -1,8 +1,6 @@
 package com.kostenarov.Hospital.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +12,7 @@ public class BloodGroup {
     @GeneratedValue
     private Long id;
 
+    @Column(unique = true)
     private String name;
 
     public BloodGroup(String name) {
