@@ -3,29 +3,22 @@ package com.kostenarov.Hospital.Entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Data
-public class Bed {
+public class Diagnosis {
     @Id
     @GeneratedValue
     private Long id;
 
-    @OneToOne(optional = true)
     @Getter
     @Setter
-    private Patient patient;
+    private String name;
 
-    public void assignPatient(Patient patient) {
-        this.patient = patient;
-    }
-
-    public void removePatient() {
-        this.patient = null;
-    }
-
+    @Getter
+    @Setter
+    private String description;
 }

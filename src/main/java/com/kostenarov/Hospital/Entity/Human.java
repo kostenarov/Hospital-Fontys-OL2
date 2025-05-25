@@ -1,8 +1,10 @@
 package com.kostenarov.Hospital.Entity;
 
+import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
 
+@MappedSuperclass
 public abstract class Human {
     @Getter
     @Setter
