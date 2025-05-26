@@ -1,0 +1,112 @@
+@startuml
+
+class Human {
+    -name: String
+    -surname: String
+    -age: int
+    +Human(name: String, surname: String, age: int)
+    +Human()
+}
+
+class Patient {
+    -id: int
+    -isSmoker: boolean
+    -bloodGroup: BloodGroup
+    -diagnoses: List<Diagnosis>
+    -doctors: List<Doctor>
+    +Patient(name: String, surname: String, age: int, id: int, isSmoker: boolean, bloodGroup: BloodGroup)
+    +Patient()
+    +addDiagnosis(diagnosis: Diagnosis): void
+    +addDoctor(doctor: Doctor): void
+    +removeDoctor(doctor: Doctor): void
+    +removeDiagnosis(diagnosis: Diagnosis): void
+}
+
+interface PatientService {
+    +addPatient(patient: Patient): void
+    +removePatient(patient: Patient): void
+    +getPatientById(id: int): Patient
+    +getAllPatients(): List<Patient>
+}
+
+class PatientServiceImpl implements PatientService {
+    -patients: List<Patient>
+    +addPatient(patient: Patient): void
+    +removePatient(patient: Patient): void
+    +getPatientById(id: int): Patient
+    +getAllPatients(): List<Patient>
+}
+
+interface PatientRepository {
+    +save(patient: Patient): void
+    +delete(patient: Patient): void
+    +findById(id: int): Patient
+    +findAll(): List<Patient>
+}
+
+class Doctor {
+    -id: int
+    -specialization: String
+    -patients: List<Patient>
+    +Doctor(name: String, surname: String, age: int, id: int, specialization: String)
+    +Doctor()
+    +addPatient(patient: Patient): void
+    +removePatient(patient: Patient): void
+}
+
+class Diagnosis {
+    -name: String
+    -description: String
+    +Diagnosis(description: String, date: Date)
+    +Diagnosis()
+}
+
+class BloodGroup {
+    -group: String
+    +BloodGroup(group: String)
+    +BloodGroup()
+}
+
+class Bed {
+    -id: int
+    -patient: Patient
+    +Bed(id: int)
+    +Bed()
+    +assignPatient(patient: Patient): void
+    +removePatient(): void
+}
+
+class Room {
+    -id: int
+    -beds: List<Bed>
+    +Room(id: int)
+    +Room()
+    +addBed(bed: Bed): void
+    +removeBed(bed: Bed): void
+}
+
+class Hospital {
+    -name: String
+    -patients: List<Patient>
+    -doctors: List<Doctor>
+    -rooms: List<Room>
+    +Hospital(name: String)
+    +Hospital()
+    +addPatient(patient: Patient): void
+    +removePatient(patient: Patient): void
+    +addDoctor(doctor: Doctor): void
+    +removeDoctor(doctor: Doctor): void
+    +addRoom(room: Room): void
+    +removeRoom(room: Room): void
+}
+
+
+Human <|-- Patient
+Human <|-- Doctor
+PatientServiceImpl <.. PatientRepository
+PatientRepository  <-- Patient: uses
+
+
+
+
+@enduml
