@@ -3,6 +3,8 @@ package com.kostenarov.Hospital.Entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Generated;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
@@ -13,12 +15,18 @@ public class BloodGroup {
     private Long id;
 
     @Column(unique = true)
-    private String name;
+    @Getter
+    @Setter
+    private String type;
 
     public BloodGroup(String name) {
-        this.name = name;
+        this.type = name;
     }
 
     public BloodGroup() {
+    }
+
+    public String getType() {
+        return type != null ? type : "No blood group assigned";
     }
 }
