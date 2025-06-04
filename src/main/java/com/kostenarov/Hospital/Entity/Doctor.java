@@ -20,7 +20,7 @@ public class Doctor extends Human{
 
     @Getter
     @Setter
-    private String Specialization = "General Practitioner";
+    private String specialization = "General Practitioner";
 
     @ManyToMany(mappedBy = "doctors")
     @Getter
@@ -31,7 +31,9 @@ public class Doctor extends Human{
 
     public Doctor(String name, String surname, short age, String specialization) {
         super(name, surname, age);
-        this.Specialization = specialization;
+        if (specialization != null || !specialization.isEmpty()) {
+            this.specialization = specialization;
+        }
     }
 
     public void addPatient(Patient patient) {
@@ -45,12 +47,6 @@ public class Doctor extends Human{
         if (patient != null && patients.contains(patient)) {
             patients.remove(patient);
             patient.removeDoctor(this);
-        }
-    }
-
-    public void setSpecialization(String specialization) {
-        if (specialization != null && !specialization.isEmpty()) {
-            this.Specialization = specialization;
         }
     }
 

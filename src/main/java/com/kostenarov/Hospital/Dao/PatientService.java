@@ -1,15 +1,16 @@
 package com.kostenarov.Hospital.Dao;
 
+import com.kostenarov.Hospital.Controller.Dto.PatientDto;
 import com.kostenarov.Hospital.Entity.Patient;
 
 import java.util.HashSet;
 
 public interface PatientService {
-    HashSet<Patient> getAllPatients();
+    HashSet<PatientDto> getAllPatients();
 
-    Patient getPatientById(Long id);
+    PatientDto getPatientById(Long id);
 
-    Patient savePatient(Patient patient);
+    void savePatient(PatientDto patient);
 
     void deletePatient(Long id);
 
@@ -21,13 +22,17 @@ public interface PatientService {
 
     void removeDiagnosisFromPatient(Long patientId, String diagnosis);
 
-    HashSet<Patient> getPatientsByNames(String name, String surname);
+    HashSet<PatientDto> getPatientsByNames(String name, String surname);
 
-    HashSet<Patient> getPatientsByBloodGroup(String bloodGroupName);
+    HashSet<PatientDto> getPatientsByBloodGroup(String bloodGroupName);
 
-    HashSet<Patient> getPatientsBySmokerStatus(boolean isSmoker);
+    HashSet<PatientDto> getPatientsBySmokerStatus(boolean isSmoker);
 
-    HashSet<Patient> getPatientsByDoctorId(Long doctorId);
+    HashSet<PatientDto> getPatientsByDoctorId(Long doctorId);
 
-    HashSet<Patient> getPatientsByDiagnosis(String diagnosis);
+    HashSet<PatientDto> getPatientsByDiagnosis(String diagnosis);
+
+    PatientDto getPatientByBedId(Long bedId);
+
+    HashSet<PatientDto> getPatientsByRoomId(Long roomId);
 }

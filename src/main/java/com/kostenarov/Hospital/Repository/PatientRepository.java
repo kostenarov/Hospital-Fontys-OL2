@@ -4,16 +4,16 @@ import com.kostenarov.Hospital.Entity.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.HashSet;
 
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Long> {
     HashSet<Patient> findByNameAndSurname(String name, String surname);
-    HashSet<Patient> findByBloodGroupName(String bloodGroupName);
+    HashSet<Patient> findByBloodGroupType(String bloodGroupType);
     HashSet<Patient> findByIsSmoker(boolean isSmoker);
-    HashSet<Patient> findByDoctorsId(Long doctorId);
-    HashSet<Patient> findByDiagnosesId(Long diagnosisId);
-
+    HashSet<Patient> findByDoctors_Id(Long doctorId);
+    HashSet<Patient> findByDiagnoses_Id(Long diagnosisId);
 
 
     // Custom query methods can be defined here if needed

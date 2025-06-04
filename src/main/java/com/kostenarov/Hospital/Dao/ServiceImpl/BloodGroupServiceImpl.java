@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class BloodGroupImpl implements BloodGroupService {
+public class BloodGroupServiceImpl implements BloodGroupService {
     private final BloodGroupRepository bloodGroupRepository;
 
     @Override

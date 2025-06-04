@@ -3,14 +3,12 @@ package com.kostenarov.Hospital.Controller.Dto;
 import lombok.Data;
 import lombok.Getter;
 
+@Getter
 @Data
 public class BloodGroupDto {
-    private Long id;
-    @Getter
     private String type;
 
-    public BloodGroupDto(Long id, String type) {
-        this.id = id;
+    public BloodGroupDto(String type) {
         this.type = type;
     }
 

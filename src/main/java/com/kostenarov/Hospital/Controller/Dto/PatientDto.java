@@ -14,15 +14,15 @@ public class PatientDto extends HumanDto {
     @Getter
     private BloodGroupDto bloodGroup;
     @Getter
-    private DiagnosisDto diagnosis;
+    private HashSet<DiagnosisDto> diagnoses;
     @Getter
     private HashSet<DoctorDto> doctors = new HashSet<>();
 
-    public PatientDto(Long id, String name, String surname, short age, BloodGroupDto bloodGroup, DiagnosisDto diagnosis, HashSet<DoctorDto> doctors) {
+    public PatientDto(Long id, String name, String surname, short age, BloodGroupDto bloodGroup, HashSet<DiagnosisDto> diagnosis, HashSet<DoctorDto> doctors) {
         super(name, surname, age);
         this.id = id;
         this.bloodGroup = bloodGroup;
-        this.diagnosis = diagnosis;
+        this.diagnoses = diagnosis;
         this.doctors = doctors != null ? doctors : new HashSet<>();
     }
 
@@ -31,7 +31,7 @@ public class PatientDto extends HumanDto {
     }
 
     public String getFullNameWithDiagnosis() {
-        return getFullName() + ", diagnosis: " + (diagnosis != null ? diagnosis.getFullName() : "No diagnosis assigned");
+        return getFullName() + ", diagnosis: " + (diagnoses != null ? diagnoses.isEmpty() : "No diagnosis assigned");
     }
 
     public String getFullNameWithBloodGroup() {
