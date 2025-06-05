@@ -1,5 +1,6 @@
 package com.kostenarov.Hospital.Dao.ServiceImpl;
 
+import com.kostenarov.Hospital.Controller.Dto.BloodGroupDto;
 import com.kostenarov.Hospital.Dao.BloodGroupService;
 import com.kostenarov.Hospital.Entity.BloodGroup;
 import com.kostenarov.Hospital.Repository.BloodGroupRepository;
@@ -9,22 +10,22 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.List;
 
+import static com.kostenarov.Hospital.Mapper.BloodGroupMapper.BLOOD_GROUP_MAPPER;
+
 @Service
 @RequiredArgsConstructor
 public class BloodGroupServiceImpl implements BloodGroupService {
     private final BloodGroupRepository bloodGroupRepository;
 
     @Override
-    public void addBloodGroup(BloodGroup type) {
+    public void addBloodGroup(BloodGroupDto type) {
         if (type == null || type.getType() == null || type.getType().isEmpty()) {
             throw new IllegalArgumentException("Blood group type cannot be null or empty");
         }
-        List<BloodGroup> existingGroups = bloodGroupRepository.findAll();
-        if(existingGroups.contains(type)) {
-            throw new IllegalArgumentException("Blood group with type " + type + " already exists");
-        }
+        BloodGroup bloodGroup = BLOOD_GROUP_MAPPER.dtoToBloodGroup(type);
 
-        bloodGroupRepository.save(type);
+
+        bloodGroupRepository.save(bloodGroup);
     }
 
     @Override
@@ -47,12 +48,12 @@ public class BloodGroupServiceImpl implements BloodGroupService {
     }
 
     @Override
-    public HashSet<String> getAllBloodGroups() {
-        HashSet<String> bloodGroups = new HashSet<>();
-        List<BloodGroup> groups = bloodGroupRepository.findAll();
-        for (BloodGroup group : groups) {
-            bloodGroups.add(group.getType());
+    public HashSet<BloodGroupDto> getAllBloodGroups() {
+        List<BloodGroup> bloodGroupsList = bloodGroupRepository.findAll();
+        if (bloodGroupsList.isEmpty()) {
+            throw new IllegalArgumentException("No blood groups found");
         }
-        return bloodGroups;
+        HashSet<BloodGroup> bloodGroups = new HashSet<>(bloodGroupsList);
+        return BLOOD_GROUP_MAPPER.bloodGroupsToDtos(bloodGroups);
     }
 }
